@@ -22,6 +22,7 @@ import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Course } from "@prisma/client";
+import { formatPrice } from "@/lib/format";
 
 interface PriceFormProps {
   initialData: Course;
@@ -80,7 +81,7 @@ export const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
             !initialData.price && "text-slate-500 italic"
           )}
         >
-          {initialData.price || "No description"}
+          {initialData.price ? formatPrice(initialData.price) : "No price"}
         </p>
       )}
       {isEditing && (
@@ -96,11 +97,11 @@ export const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
                 <FormItem>
                   <FormControl>
                     <Input
-                    type="number"
-                    step="0.01"
-                    disabled={isSubmitting}
-                    placeholder="Set a price for your course"
-                    {...field}
+                      type="number"
+                      step="0.01"
+                      disabled={isSubmitting}
+                      placeholder="Set a price for your course"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
